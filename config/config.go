@@ -4,13 +4,13 @@ const (
 	//Env é o ambiente de desenvolvimento da aplicação
 	Env = "DEV"
 	//DbHost é o host do servidor
-	DbHost = "sql199.main-hosting.eu"
+	DbHost = "localhost"
 	//DbUser é o nome do usuário do banco de dados
-	DbUser = "u876394969_ger"
+	DbUser = "postgres"
 	//DbPassword é a senha do usuário do banco
-	DbPassword = "5kQQgl5wnK6iuX>IG$"
+	DbPassword = ""
 	//DbName é o nome do schema
-	DbName = "u876394969_ger"
+	DbName = "test"
 	//DbPort é a porta para a conexão com o servidor
-	DbPort = "3306"
+	DbPort = "5432"
 )

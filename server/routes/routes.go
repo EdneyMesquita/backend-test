@@ -1,8 +1,8 @@
 package routes
 
 import (
+	"backend-test/server/handlers/workflows"
 	"net/http"
-	"test/server/handlers/workflows"
 
 	cors "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"

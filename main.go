@@ -1,9 +1,9 @@
 package main
 
 import (
-	"leva-api/config"
-	"leva-api/pkg/orm/connection"
-	"leva-api/server/routes"
+	"backend-test/config"
+	"backend-test/server/database"
+	"backend-test/server/routes"
 	"log"
 	"os"
 )
@@ -18,8 +18,8 @@ func main() {
 
 	log.Printf("Server started at port %s\n\n", port)
 
-	connection.Connect()
-	defer connection.Conn.Close()
+	database.Connect()
+	defer database.Conn.Close()
 
 	routes.Run(port)
 }
