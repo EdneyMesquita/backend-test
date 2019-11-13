@@ -4,7 +4,7 @@ import (
 	"backend-test/models"
 	"backend-test/server/database"
 	"backend-test/utils"
-	b64 "encoding/base64"
+	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -12,10 +12,10 @@ import (
 
 //List returns a whole list of workflows
 func List(w http.ResponseWriter, r *http.Request) {
-	sql := utils.BuildString(`SELECT w."uuid", w."name", w."data", w."status", STRING_AGG('{"name": "' || s."name" || '"}', ', ') as step from workflows w
+	sql := utils.BuildString(`SELECT w."uuid", w."name", w."data", w."status", STRING_AGG(s."name", ', ') as step from workflows w
 	LEFT JOIN steps s ON(s.workflow = w.id)
 	GROUP BY w.id`)
-
+	fmt.Println(sql)
 	rows, err := database.Conn.Query(sql)
 	if err != nil {
 		log.Println(err.Error())
@@ -25,7 +25,6 @@ func List(w http.ResponseWriter, r *http.Request) {
 
 	var (
 		workflows []models.FullWorkflow
-		data      string
 		steps     string
 	)
 	for rows.Next() {
@@ -33,13 +32,19 @@ func List(w http.ResponseWriter, r *http.Request) {
 		rows.Scan(
 			&workflow.UUID,
 			&workflow.Name,
-			&data,
+			&workflow.Data,
 			&workflow.Status,
 			&steps,
 		)
-		workflow.Data, _ = b64.StdEncoding.DecodeString(data)
 		if steps != "" {
-			workflow.Steps = strings.Split(steps, ",")
+			stepsSlice := strings.Split(steps, ",")
+			var stepsMapped []models.Step
+			for _, step := range stepsSlice {
+				stepsMapped = append(stepsMapped, models.Step{
+					Name: step,
+				})
+			}
+			workflow.Steps = stepsMapped
 		}
 		workflows = append(workflows, workflow)
 	}

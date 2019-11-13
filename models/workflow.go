@@ -16,11 +16,11 @@ type (
 
 	//FullWorkflow is the model for converting results to JSON
 	FullWorkflow struct {
-		UUID   string      `json:"uuid"`
-		Name   string      `json:"name"`
-		Status string      `json:"status"`
-		Data   interface{} `json:"data"`
-		Steps  []string    `json:"steps"`
+		UUID   string `json:"uuid"`
+		Name   string `json:"name"`
+		Status string `json:"status"`
+		Data   string `json:"data"`
+		Steps  []Step `json:"steps"`
 	}
 
 	//Workflows is the model for converting results to JSON
