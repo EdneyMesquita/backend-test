@@ -73,5 +73,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//Reload queue
+	MountQueue()
 	utils.HTTPResponse(w, http.StatusOK, "Workflow inserted successfully!", false)
 }
