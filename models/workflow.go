@@ -14,6 +14,11 @@ type (
 		Steps  []Step                 `json:"steps"`
 	}
 
+	//WorkflowStatus is the model for mapping data from request to struct
+	WorkflowStatus struct {
+		Status string `json:"status"`
+	}
+
 	//FullWorkflow is the model for converting results to JSON
 	FullWorkflow struct {
 		UUID   string `json:"uuid"`

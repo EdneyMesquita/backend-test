@@ -4,7 +4,6 @@ import (
 	"backend-test/models"
 	"backend-test/server/database"
 	"backend-test/utils"
-	"fmt"
 	"log"
 	"net/http"
 	"strings"
@@ -15,7 +14,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	sql := utils.BuildString(`SELECT w."uuid", w."name", w."data", w."status", STRING_AGG(s."name", ', ') as step from workflows w
 	LEFT JOIN steps s ON(s.workflow = w.id)
 	GROUP BY w.id`)
-	fmt.Println(sql)
+
 	rows, err := database.Conn.Query(sql)
 	if err != nil {
 		log.Println(err.Error())
